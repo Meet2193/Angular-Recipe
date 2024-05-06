@@ -1,0 +1,187 @@
+<div
+  class="flex w-full transform text-left text-base transition md:my-8 md:px-4"
+>
+  <div
+    class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8"
+  >
+    <div
+      class="md:flex w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8"
+    >
+      <div
+        class="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5"
+      >
+        <img
+          [src]="recipe?.image"
+          alt="Two each of gray, white, and black shirts arranged on table."
+          class="object-cover object-center w-full h-96"
+        />
+      </div>
+      <button
+        (click)="favoriteRecipes()"
+        matTooltip="Accent"
+        color="accent"
+        class="absolute top-14 right-6 cursor-pointer"
+      >
+        <mat-icon
+          class="cursor-pointer text-3xl favoriteIcon"
+          [ngStyle]="{ color: isFavorite ? 'red' : 'white' }"
+          >favorite</mat-icon
+        >
+      </button>
+      <div class="sm:col-span-8 lg:col-span-7 mt-4 md:mt-0">
+        <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">
+          {{ recipe?.RecipeType }}
+        </h2>
+
+        <section aria-labelledby="information-heading" class="mt-2">
+          <h3 id="information-heading" class="sr-only">Recipe information</h3>
+
+          <p class="text-2xl text-gray-900">${{ recipe?.price }}</p>
+        </section>
+
+        <section aria-labelledby="options-heading" class="mt-10">
+          <h3 id="options-heading" class="sr-only">Product options</h3>
+
+          <form>
+            <!-- Ingredients -->
+            <div class="mt-10">
+              <div class="flex justify-between">
+                <h4 class="text-sm font-medium text-gray-900">Ingredients</h4>
+                <a
+                  class="text-sm font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer"
+                  >Ingredients guide</a
+                >
+              </div>
+
+              <fieldset class="mt-4">
+                <div class="gap-4">
+                  <!-- Active: "ring-2 ring-indigo-500" -->
+                  <label
+                    class="group relative flex items-center rounded-md border py-3 px-4 text-sm font-medium hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm"
+                  >
+                    <div class="flex gap-2">
+                      @for (Ingredient of recipe?.Ingredients; track Ingredient)
+                      {
+                      <div
+                        class="relative grid select-none items-center whitespace-nowrap rounded-lg bg-gray-900/10 py-1.5 px-3 font-sans text-xs font-bold text-gray-900"
+                      >
+                        <span class="">{{ Ingredient }}</span>
+                      </div>
+                      }
+                    </div>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+            <!-- 
+                  <h3 class="text-center mt-3 text-2xl font-bold text-gray-600 sm:pr-12">Recipe Description</h3>
+                  <p class="text-gray-500">
+                    {{ recipe.description }}
+                  </p> -->
+          </form>
+          <div class="mt-3">
+            <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">
+              Steps Of Recipe
+            </h2>
+            @for(step of recipe?.steps;track $index){
+            <h4 class="text-green-500 text-xl">Step {{ $index + 1 }}</h4>
+            <p class="text-gray-500">
+              {{ step?.step }}
+            </p>
+            }
+          </div>
+          @if (isAccess) {
+          <div class="flex gap-5">
+            <button
+              class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              (click)="editRecipe(recipe.id)"
+            >
+              Edit Recipe
+            </button>
+            <button
+              class="mt-6 flex items-center justify-center rounded-md border border-transparent bg-red-500 px-8 py-1 text-base font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 w-1/12"
+              (click)="isConfirm = true"
+              title="Delete Recipe"
+            >
+              <span class="text-3xl"
+                ><i class="fa fa-trash" aria-hidden="true"> </i
+              ></span>
+            </button>
+          </div>
+          }
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+@if(isConfirm){
+<div
+  class="relative z-10"
+  aria-labelledby="modal-title"
+  role="dialog"
+  aria-modal="true"
+>
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+  <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <div
+      class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
+    >
+      <div
+        class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
+      >
+        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <div
+              class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
+            >
+              <svg
+                class="h-6 w-6 text-red-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+                />
+              </svg>
+            </div>
+            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+              <h3
+                class="text-base font-semibold leading-6 text-gray-900"
+                id="modal-title"
+              >
+                Delete Recipe
+              </h3>
+              <div class="mt-2">
+                <p class="text-sm text-gray-500">
+                  Are you sure you want to delete your Recipe?
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+          <button
+            class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+            (click)="isConfirm = false"
+          >
+            No
+          </button>
+          <button
+            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+            (click)="deleteRecipes()"
+          >
+            Yes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}

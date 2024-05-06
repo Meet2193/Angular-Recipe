@@ -1,0 +1,8 @@
+.favoriteFab {
+  position: absolute;
+  top: 10%;
+  right: 60%;
+}
+.favorite-icon {
+  color: blue !important;
+}

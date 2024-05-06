@@ -1,0 +1,26 @@
+<div class="mb-2">
+  <div class="relative mt-2 rounded-md shadow-sm flex items-center gap-2">
+    <input
+      type="text"
+      class="block w-full rounded-md border-0 py-0.5 pr-4 md:pr-10 lg:py-1.5 pl-7 lg:pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+      placeholder="Search"
+      [(ngModel)]="text"
+      name="search"
+      (ngModelChange)="this.userQuestionUpdate.next($event)"
+    />
+    <div>
+      <button
+        class="bg-blue-500 text-white p-1 rounded-md"
+        (click)="onSearch()"
+      >
+        Search
+      </button>
+    </div>
+    <button
+      class="bg-blue-500 text-white p-1 text-nowrap rounded-md"
+      routerLink="/add-recipe/"
+    >
+      Add New Recipe
+    </button>
+  </div>
+</div>

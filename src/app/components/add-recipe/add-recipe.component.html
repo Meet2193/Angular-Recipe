@@ -1,0 +1,265 @@
+<section
+  class="bg-slate-100"
+  style="
+    background-image: url('https://themes.lucid-themes.com/cuisine/wp-content/uploads/2017/06/promo_2-1.jpg');
+  "
+>
+  <div class="px-4 flex justify-end text-2xl pt-3"></div>
+  <div class="w-full px-4 mx-auto pt-6 pb-4 flex justify-center">
+    <div
+      class="relative flex flex-col min-w-0 break-words mb-6 shadow-lg rounded-lg bg-slate-200 border-0 md:w-2/3"
+    >
+      <div class="rounded-t mb-0 px-6 py-6">
+        <div class="text-center mb-3">
+          <h3 class="text-blueGray-500 text-sm font-bold">
+            {{ title }} Recipe
+          </h3>
+        </div>
+      </div>
+      <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+        <form [formGroup]="addRecipe">
+          <div class="relative w-full mb-3">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              for="grid-password"
+              >CookTime</label
+            ><input
+              type="email"
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+              placeholder="Enter CookTime"
+              formControlName="CookTime"
+              [ngClass]="{
+                'border-red-600': submitted && getControl['CookTime'].errors
+              }"
+            />
+            @if(submitted && getControl['CookTime'].errors){
+            <div class="invalid-feedback">
+              @if (getControl['CookTime'].errors['required']) {
+              <div class="text-red-600">CookTime is reuired</div>
+              }
+            </div>
+            }
+          </div>
+          <div class="relative w-full mb-3">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              for="grid-password"
+              >ReadyIn</label
+            ><input
+              type="number"
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+              placeholder="Enter ReadyIn Time"
+              formControlName="ReadyIn"
+              [ngClass]="{
+                'border-red-600': submitted && getControl['ReadyIn'].errors
+              }"
+            />
+            @if(submitted && getControl['ReadyIn'].errors){
+            <div class="invalid-feedback">
+              @if (getControl['ReadyIn'].errors['required']) {
+              <div class="text-red-600">ReadyIn is reuired</div>
+              }
+            </div>
+            }
+          </div>
+          <div class="relative w-full mb-3">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              for="grid-password"
+              >Ingredients</label
+            >
+            <!-- <input
+                  type="text"
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  placeholder="Enter Ingredients"
+                  formControlName="Ingredients"
+                /> -->
+            <mat-form-field class="example-chip-list">
+              <mat-label>Ingredients</mat-label>
+              <mat-chip-grid #chipGrid aria-label="Enter fruits">
+                @for (Ingredient of ingredients; track Ingredient) {
+                <mat-chip-row
+                  (removed)="remove(Ingredient)"
+                  [editable]="true"
+                  (edited)="edit(Ingredient, $event)"
+                  [aria-description]="'press enter to edit ' + Ingredient"
+                >
+                  {{ Ingredient }}
+                  <button
+                    matChipRemove
+                    [attr.aria-label]="'remove ' + Ingredient"
+                  >
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+                }
+                <input
+                  placeholder="New Ingredients..."
+                  [matChipInputFor]="chipGrid"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)"
+                />
+              </mat-chip-grid>
+            </mat-form-field>
+            <div class="invalid-feedback">
+              @if (submitted && ingredients?.length == 0) {
+              <div class="text-red-600">Ingredients is reuired</div>
+              }
+            </div>
+          </div>
+          <div class="relative w-full mb-3">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              for="grid-password"
+              >RecipeType</label
+            ><input
+              type="text"
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+              placeholder="Enter RecipeType Name"
+              formControlName="RecipeType"
+              [ngClass]="{
+                'border-red-600': submitted && getControl['RecipeType'].errors
+              }"
+            />
+            @if(submitted && getControl['RecipeType'].errors){
+            <div class="invalid-feedback">
+              @if (getControl['RecipeType'].errors['required']) {
+              <div class="text-red-600">RecipeType is reuired</div>
+              }
+            </div>
+            }
+          </div>
+          <div class="relative w-full mb-3">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              for="grid-password"
+              >image</label
+            ><input
+              type="text"
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+              placeholder="Enter Image Link"
+              formControlName="image"
+              [ngClass]="{
+                'border-red-600': submitted && getControl['image'].errors
+              }"
+            />
+            @if(submitted && getControl['image'].errors){
+            <div class="invalid-feedback">
+              @if (getControl['image'].errors['required']) {
+              <div class="text-red-600">Image is reuired</div>
+              }
+            </div>
+            }
+          </div>
+          <div class="relative w-full mb-3">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              for="grid-password"
+              >price</label
+            ><input
+              type="number"
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+              placeholder="Enter price"
+              formControlName="price"
+              [ngClass]="{
+                'border-red-600': submitted && getControl['price'].errors
+              }"
+            />
+            @if(submitted && getControl['price'].errors){
+            <div class="invalid-feedback">
+              @if (getControl['price'].errors['required']) {
+              <div class="text-red-600">Price is reuired</div>
+              }
+            </div>
+            }
+          </div>
+          <div class="relative w-full mb-3">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              for="grid-password"
+              >description</label
+            ><input
+              type="text"
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+              placeholder="Enter description"
+              formControlName="description"
+              [ngClass]="{
+                'border-red-600': submitted && getControl['description'].errors
+              }"
+            />
+            @if(submitted && getControl['description'].errors){
+            <div class="invalid-feedback">
+              @if (getControl['description'].errors['required']) {
+              <div class="text-red-600">Description is reuired</div>
+              }
+            </div>
+            }
+          </div>
+          <div class="relative w-full mb-3">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              for="grid-password"
+              >Step Of Recipe</label
+            >
+            <div class="relative">
+              <input
+                type="text"
+                class="block border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                placeholder="Enter Step Of Recipe"
+                formControlName="addRecipeStep"
+              />
+              <button
+                class="addStep"
+                mat-mini-fab
+                color="primary"
+                (click)="addStepRecipe()"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+              @if(submitted && stepFormControl){
+              <div class="invalid-feedback">
+                <div class="text-red-600">Step Of Recipeis reuired</div>
+              </div>
+              }
+            </div>
+            @for (step of stepFormGroup; track $index) {
+            <p class="stepIndex">Step {{ $index + 1 }}</p>
+            <div [formGroup]="step" class="row" class="relative">
+              <input
+                type="text"
+                class="block border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                placeholder="Enter Recipe1"
+                formControlName="step"
+              />
+              <button
+                class="addStep"
+                mat-mini-fab
+                color="primary"
+                (click)="deleteStepReicpe($index)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+              @if(submitted && step.controls['step'].errors){
+              <div class="invalid-feedback">
+                @if(step.controls['step'].errors['required']){
+                <div class="text-red-600">step is reuired</div>
+                }
+              </div>
+              }
+            </div>
+            }
+          </div>
+          <div class="text-center mt-6">
+            <button
+              class="bg-blue-600 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+              (click)="addEditRecipe()"
+            >
+              {{ title }} Recipe
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

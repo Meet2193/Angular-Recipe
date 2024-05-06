@@ -1,0 +1,68 @@
+<!-- <p>footer works!Components</p> -->
+<footer class="shadow dark:bg-gray-700 bg-slate-300">
+  <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <a class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+        <img
+          src="https://static.vecteezy.com/system/resources/previews/008/212/813/large_2x/cooking-logo-design-vector.jpg"
+          class="h-8"
+          alt="Flowbite Logo"
+        />
+        <span
+          class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+          >Cooking Recipe</span
+        >
+      </a>
+
+      <ul
+        class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+      >
+        <li>
+          <a class="hover:underline me-4 md:me-6 cursor-pointer">About</a>
+        </li>
+        <li>
+          <a class="hover:underline me-4 md:me-6 cursor-pointer"
+            >Privacy Policy</a
+          >
+        </li>
+        <li>
+          <a class="hover:underline cursor-pointer">Contact</a>
+        </li>
+      </ul>
+    </div>
+
+    <form
+      class="mx-auto flex md:justify-center mt-2 max-w-md"
+      [formGroup]="emailData"
+      (ngSubmit)="sendMail()"
+    >
+      <div>
+        <input
+          type="text"
+          class="min-w-0 flex-auto border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6"
+          placeholder="Enter your email"
+          formControlName="to"
+        />
+        @if(submitted && getControl['to'].errors){
+        <div class="invalid-feedback">
+          @if (getControl['to'].errors['required']) {
+          <div class="text-red-600">Email is reuired</div>
+          } @if (getControl['to'].errors['pattern']) {
+          <div class="text-red-600">Email is invalid</div>
+          }
+        </div>
+        }
+      </div>
+      <button
+        class="h-9 md:h-full flex-none bg-blue-400 px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+      >
+        Notify me
+      </button>
+    </form>
+    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+    <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400"
+      >© 2024 <a class="hover:underline cursor-pointer">Cooking Recipe</a>. All
+      Rights Reserved.</span
+    >
+  </div>
+</footer>

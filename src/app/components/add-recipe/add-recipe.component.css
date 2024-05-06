@@ -1,0 +1,8 @@
+.addStep {
+  position: absolute !important;
+  top: 2px;
+  right: 2px;
+}
+.stepIndex{
+  margin: 4px 0px 4px 0px !important;
+}

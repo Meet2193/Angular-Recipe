@@ -1,0 +1,7 @@
+.loginWidget {
+  background-image: url("https://themes.lucid-themes.com/cuisine/wp-content/uploads/2017/06/promo_2-1.jpg");
+  height: -webkit-fill-available;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
